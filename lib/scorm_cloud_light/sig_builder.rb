@@ -1,10 +1,12 @@
+require 'digest'
+
 module ScormCloudLight
   module SigBuilder
     class << self
 
-      def call(method_params, scorm_credentials)
-        build_params_string(method_params)
-          .yield_self { |params_string| scorm_credentials[:secret_key].dup.concat(params_string) }
+      def call(url_params, secret_key)
+        build_params_string(url_params)
+          .yield_self { |params_string| secret_key.dup.concat(params_string) }
           .yield_self { |raw_sig_string| Digest::MD5.hexdigest(raw_sig_string) }
       end
 

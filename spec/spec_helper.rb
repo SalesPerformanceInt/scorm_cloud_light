@@ -1,6 +1,12 @@
 require "bundler/setup"
 require "scorm_cloud_light"
 
+module ScormTestCredentials
+  APP_ID = "123456".freeze
+  SECRET_KEY = "ABCDEF".freeze
+  SCORM_BASE_URL = "https://example.com".freeze
+end
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
