@@ -1,4 +1,4 @@
-#Gem is under active development, not yet published to Ruby Gems, not ready for use.
+# Gem is under active development, not yet published to Ruby Gems, not ready for use.
 
 # ScormCloudLight
 
