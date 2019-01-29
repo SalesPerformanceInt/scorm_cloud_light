@@ -4,7 +4,7 @@ require "scorm_cloud_light"
 module ScormTestCredentials
   APP_ID = "123456".freeze
   SECRET_KEY = "ABCDEF".freeze
-  SCORM_BASE_URL = "https://example.com".freeze
+  SCORM_BASE_URL = "https://cloud.scorm.com".freeze
 end
 
 RSpec.configure do |config|

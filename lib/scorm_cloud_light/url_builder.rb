@@ -2,30 +2,30 @@ module ScormCloudLight
   module URLBuilder
     class << self
 
-      def call(method_params, scorm_credentials)
-        url_params = build_url_params(method_params, scorm_credentials)
-        build_up_url(url_params, scorm_credentials)
+      def call(method_params, app_id, secret_key, scorm_base_url)
+        url_params = build_url_params(method_params, app_id)
+        build_up_url(url_params, secret_key, scorm_base_url)
       end
 
       private
 
-      def build_url_params(method_params, scorm_credentials)
+      def build_url_params(method_params, app_id)
         method_params
           .merge(method: "rustici.#{method_params[:method]}")
-          .merge(ts: build_timestamp, appid: scorm_credentials[:app_id])
+          .merge(ts: build_timestamp, appid: app_id)
       end
 
-      def build_up_url(params, scorm_credentials)
-        scorm_credentials[:api_base_url].dup
+      def build_up_url(url_params, secret_key, scorm_base_url)
+        scorm_base_url.dup
           .concat('/api?')
-          .concat(encode_url_params(params))
+          .concat(encode_url_params(url_params))
           .concat('&sig=')
-          .concat(ScormCloudLight::SigBuilder.call(params, scorm_credentials))
+          .concat(ScormCloudLight::SigBuilder.call(url_params, secret_key))
       end
 
-      def encode_url_params(params)
-        base_params = params.slice(:method, :appid)
-        arg_params = params.except(:method, :appid)
+      def encode_url_params(url_params)
+        base_params = url_params.slice(:method, :appid)
+        arg_params = url_params.slice(*(url_params.keys - base_params.keys))
         encode(base_params)
           .concat('&')
           .concat(encode(arg_params))
@@ -36,7 +36,7 @@ module ScormCloudLight
       end
 
       def build_timestamp
-        Time.current.utc.strftime('%Y%m%d%H%M%S')
+        Time.now.utc.strftime('%Y%m%d%H%M%S')
       end
     end
   end
