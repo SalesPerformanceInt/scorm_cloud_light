@@ -1,11 +1,11 @@
 require "spec_helper"
 
-RSpec.describe ScormCloudLight::APIDispatcher do
+RSpec.describe ScormCloudLight::ApiDispatcher do
 
   let(:url) { "https://cloud.scorm.com/fake_method_request" }
 
   it "raises an error if the verb is not POST or GET" do
-    expect { ScormCloudLight::APIDispatcher.call("NOPE", url) }.to raise_error(ScormCloudLight::InvalidHttpVerb)
+    expect { ScormCloudLight::ApiDispatcher.call("NOPE", url) }.to raise_error(ScormCloudLight::InvalidHttpVerb)
   end
 
   context "GET requests" do
@@ -21,7 +21,8 @@ RSpec.describe ScormCloudLight::APIDispatcher do
     end
 
     it "calls Net::HTTP.get and returns 200" do
-      response = ScormCloudLight::APIDispatcher.call("GET", url)
+      response = ScormCloudLight::ApiDispatcher.call("GET", url)
+      expect(response.class.ancestors.include?(Net::HTTPResponse)).to eq true
       expect(response.code).to eq "200"
       expect(response.body).to eq "hello"
     end
@@ -40,13 +41,15 @@ RSpec.describe ScormCloudLight::APIDispatcher do
     end
 
     it "calls Net::HTTP.post and returns 200 for a POST verb" do
-      response = ScormCloudLight::APIDispatcher.call("POST", url)
+      response = ScormCloudLight::ApiDispatcher.call("POST", url)
+      expect(response.class.ancestors.include?(Net::HTTPResponse)).to eq true
       expect(response.code).to eq "200"
       expect(response.body).to eq "hello"
     end
 
     it "calls Net::HTTP.post and returns 200 if no verb given" do
-      response = ScormCloudLight::APIDispatcher.call(nil, url)
+      response = ScormCloudLight::ApiDispatcher.call(nil, url)
+      expect(response.class.ancestors.include?(Net::HTTPResponse)).to eq true
       expect(response.code).to eq "200"
       expect(response.body).to eq "hello"
     end

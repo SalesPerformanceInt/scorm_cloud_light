@@ -2,7 +2,7 @@ require 'net/http'
 require 'openssl'
 
 module ScormCloudLight
-  module APIDispatcher
+  module ApiDispatcher
     class << self
 
       def call(http_verb, url)
