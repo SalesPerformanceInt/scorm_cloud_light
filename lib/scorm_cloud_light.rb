@@ -7,7 +7,7 @@ require "scorm_cloud_light/version"
 module ScormCloudLight
 
   class Client
-    
+
     def initialize(app_id, secret_key, scorm_base_url)
       @app_id = app_id
       @secret_key = secret_key
@@ -30,7 +30,7 @@ module ScormCloudLight
   
     def build_url(method_params, app_id, secret_key, scorm_base_url)
       builder_params = get_builder_params(method_params)
-      ScormCloudLight::URLBuilder.call(builder_params, app_id, secret_key, scorm_base_url)
+      URLBuilder.call(builder_params, app_id, secret_key, scorm_base_url)
     end
 
     def get_builder_params(method_params)
@@ -38,7 +38,7 @@ module ScormCloudLight
     end
 
     def dispatch_request(method_params, url)
-      ScormCloudLight::ApiDispatcher.call(method_params[:http_verb], url)
+      ApiDispatcher.call(method_params[:http_verb], url)
     end
   end
 end

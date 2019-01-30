@@ -20,7 +20,7 @@ module ScormCloudLight
           .concat('/api?')
           .concat(encode_url_params(url_params))
           .concat('&sig=')
-          .concat(ScormCloudLight::SigBuilder.call(url_params, secret_key))
+          .concat(SigBuilder.call(url_params, secret_key))
       end
 
       def encode_url_params(url_params)
