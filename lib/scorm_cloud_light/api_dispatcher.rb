@@ -1,21 +1,23 @@
 require 'net/http'
+require 'openssl'
 
 module ScormCloudLight
   module APIDispatcher
     class << self
 
-      def call(method_params, scorm_credentials)
-        verb = method_params[:verb] || 'POST'
-        raise "Invalid Verb" unless ['POST', 'GET'].include?(verb)
-        build_and_dispatch_request(verb, method_params, scorm_credentials)
+      def call(http_verb, url)
+        verb = get_verb(http_verb)
+        uri = URI(url)
+        request = build_request(verb, uri)
+        dispatch_request(uri, request)
       end
 
       private
 
-      def build_and_dispatch_request(verb, method_params, scorm_credentials)
-        uri = URI(ScormCloudLight::URLBuilder.call(method_params.except(:verb), scorm_credentials))
-        request = build_request(verb, uri)
-        dispatch_request(uri, request)
+      def get_verb(http_verb)
+        verb = http_verb || 'POST'
+        raise InvalidHttpVerb unless ['POST', 'GET'].include?(verb)
+        verb
       end
 
       def build_request(verb, uri)

@@ -3,8 +3,8 @@ module ScormCloudLight
     class << self
 
       def call(method_params, app_id, secret_key, scorm_base_url)
-        url_params = build_url_params(method_params, app_id)
-        build_up_url(url_params, secret_key, scorm_base_url)
+        url_params = build_url_params(method_params, app_id.freeze)
+        build_up_url(url_params, secret_key.freeze, scorm_base_url.freeze)
       end
 
       private

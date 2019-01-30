@@ -1,11 +1,6 @@
-require "bundler/setup"
 require "scorm_cloud_light"
-
-module ScormTestCredentials
-  APP_ID = "123456".freeze
-  SECRET_KEY = "ABCDEF".freeze
-  SCORM_BASE_URL = "https://cloud.scorm.com".freeze
-end
+require "bundler/setup"
+require "webmock/rspec"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
