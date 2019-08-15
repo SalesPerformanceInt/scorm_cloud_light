@@ -1,6 +1,6 @@
-# Gem is under active development.
+# Gem Archived
 
-ScormCloudLight is not yet published to Ruby Gems, and not ready for use.
+Mid-development of this gem, Rustici released a new verison of their API with a Ruby client to go with it. As a result, development of this gem is frozen.
 
 # ScormCloudLight
 
