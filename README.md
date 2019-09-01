@@ -4,7 +4,7 @@ Mid-development of this gem, Rustici released a new verison of their API with a 
 
 # ScormCloudLight
 
-ScormCloudLight is an ultra-light wrapper for the Rustici Cloud API.
+ScormCloudLight is an ultra-light wrapper for the Rustici SCORM Cloud API.
 https://rusticisoftware.com/products/scorm-cloud/
 
 ## Installation
