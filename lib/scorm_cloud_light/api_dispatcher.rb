@@ -1,14 +1,17 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'openssl'
 
 module ScormCloudLight
+  # ApiDispatcher is responsible for sending requests to SCORM Cloud
   module ApiDispatcher
     class << self
-
       def call(http_verb, url)
-        verb = get_verb(http_verb)
-        uri = URI(url)
+        verb    = get_verb(http_verb)
+        uri     = URI(url)
         request = build_request(verb, uri)
+
         dispatch_request(uri, request)
       end
 
@@ -16,7 +19,8 @@ module ScormCloudLight
 
       def get_verb(http_verb)
         verb = http_verb || 'POST'
-        raise InvalidHttpVerb unless ['POST', 'GET'].include?(verb)
+        raise InvalidHttpVerb unless %w[POST GET].include?(verb)
+
         verb
       end
 
