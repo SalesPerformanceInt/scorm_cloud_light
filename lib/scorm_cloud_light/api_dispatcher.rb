@@ -8,7 +8,7 @@ module ScormCloudLight
   module ApiDispatcher
     class << self
       def call(http_verb, url)
-        verb    = get_verb(http_verb)
+        verb    = select_verb(http_verb)
         uri     = URI(url)
         request = build_request(verb, uri)
 
@@ -17,7 +17,7 @@ module ScormCloudLight
 
       private
 
-      def get_verb(http_verb)
+      def select_verb(http_verb)
         verb = http_verb || 'POST'
         raise InvalidHttpVerb unless %w[POST GET].include?(verb)
 

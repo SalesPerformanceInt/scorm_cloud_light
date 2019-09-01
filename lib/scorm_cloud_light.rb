@@ -31,11 +31,11 @@ module ScormCloudLight
     private
 
     def build_url(method_params, app_id, secret_key, scorm_base_url)
-      builder_params = get_builder_params(method_params)
+      builder_params = select_builder_params(method_params)
       URLBuilder.call(builder_params, app_id, secret_key, scorm_base_url)
     end
 
-    def get_builder_params(method_params)
+    def select_builder_params(method_params)
       method_params.slice(*(method_params.keys - [:http_verb]))
     end
 
